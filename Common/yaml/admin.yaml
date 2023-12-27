@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: Smart Contact Manager - OpenAPI 3.0
-  description: The project was about creating smart contact manager. Which can be specifically used for bussiness model. This is a web application which can be used as a simple pluging to any existing project. 
+  description: The project was about creating Smart Contact Manager. Which can be specifically used for business model. This is a web application which can be used as a simple pluging to any existing project. 
    
   
   termsOfService: http://swagger.io/terms/
@@ -16,21 +16,16 @@ externalDocs:
   url: http://swagger.io
 servers:
   - url: http://localhost:8080
-tags:
-  - name: contacts
-    description: Apis relatd to contacts
-    externalDocs:
-      description: Find out more
-      url: http://swagger.io
+
   
 paths:
   /v1/contacts/admin/users/{userId}:
     get:
       tags:
-        - contacts
+        - Contacts
       summary: Find contacts 
       description: To get list of contatcs of specific user 
-      operationId: getListOFContact
+      operationId: getListOfContact
       
       parameters:
         - name: userId
@@ -105,10 +100,10 @@ paths:
                 
     delete:
       tags:
-           - contacts
+           - Contacts
       summary: Delete contacts 
       description: To delete  specific user's contacts
-      operationId: dleteContactOfUeser
+      operationId: deleteContactOfUeser
       
       parameters:
         - name: userId
@@ -178,7 +173,7 @@ paths:
   /v1/contacts/admin:
     post:
       tags:
-           - contacts
+           - Contacts
       summary: Create contact 
       description: Create contact for all users by Admin
       operationId: CreateContact
@@ -219,7 +214,7 @@ paths:
   /v1/categories/admin:
     post:
       tags:
-           - category
+           - Category
       summary: Create category 
       description: Create category for all users by Admin
       operationId: CreateCategory
