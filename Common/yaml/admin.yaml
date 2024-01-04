@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: Smart Contact Manager - OpenAPI 3.0
-  description: The project was about creating Smart Contact Manager. Which can be specifically used for business model. This is a web application which can be used as a simple pluging to any existing project. 
+  description: The project is about creating Smart Contact Manager which can be specifically used for business model. This is a web application which can be used as a simple plugin to any existing project. 
    
   
   termsOfService: http://swagger.io/terms/
@@ -22,9 +22,9 @@ paths:
   /v1/contacts/admin/users/{userId}:
     get:
       tags:
-        - Contacts
+        - Contact
       summary: Find contacts 
-      description: To get list of contatcs of specific user 
+      description: To get list of contacts of specific user 
       operationId: getListOfContact
       
       parameters:
@@ -55,19 +55,18 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/contactList'
+                  $ref: '#/components/schemas/ContactList'
                 
                 example:
                   - id: 101
                     fullName: Naneet Kumar
-                    contacatNumber: 7546930695
+                    contactNumber: 7546930695
                     personalEmail: nk5469562@gmail.com
                     
                   - id: 102
                     fullName: Mukesh Kumar
-                    contacatNumber: 7546930799
+                    contactNumber: 7546930799
                     personalEmail: mukesh@gmail.com  
-                  
             
         '400':
           description: BAD REQUEST 
@@ -77,7 +76,6 @@ paths:
                 type: string
                 example: 
                   message: Invalid UserId/ContactId
-                  
           
         '404':
           description: NOT FOUND  
@@ -100,10 +98,10 @@ paths:
                 
     delete:
       tags:
-           - Contacts
+           - Contact
       summary: Delete contacts 
       description: To delete  specific user's contacts
-      operationId: deleteContactOfUeser
+      operationId: deleteContactOfUser
       
       parameters:
         - name: userId
@@ -116,8 +114,6 @@ paths:
             enum:
               - 1001
              
-              
-              
         - name: contactIds
           in: query
           description: contactIds, that need to be considered for delete
@@ -137,8 +133,7 @@ paths:
               schema:
                 type: string
                 example: 
-                  message: Deleted Successfully
-                  
+                  message: Deleted successfully
                 
         '400':
           description: BAD REQUEST 
@@ -149,7 +144,6 @@ paths:
                 example: 
                   message: Invalid UserId/ContactId
                   
-          
         '404':
           description: NOT FOUND  
           content:
@@ -169,14 +163,14 @@ paths:
                  message: Internal Server Error
                                    
                                    
-                                   
   /v1/contacts/admin:
     post:
       tags:
-           - Contacts
+           - Contact
       summary: Create contact 
       description: Create contact for all users by Admin
-      operationId: CreateContact
+      operationId: createContact
+      
       requestBody:
         content:
           application/json:
@@ -191,7 +185,6 @@ paths:
                 type: string
                 example: 
                   message: Contact Created Successfully
-                  
                 
         '400':
           description: BAD REQUEST 
@@ -211,13 +204,15 @@ paths:
                 example: 
                  message: Internal Server Error
   
+  
   /v1/categories/admin:
     post:
       tags:
            - Category
       summary: Create category 
       description: Create category for all users by Admin
-      operationId: CreateCategory
+      operationId: createCategory
+      
       requestBody:
         content:
           application/json:
@@ -232,8 +227,7 @@ paths:
               schema:
                 type: string
                 example: 
-                  message: Contact Created Successfully
-                  
+                  message: Category Created Successfully
                 
         '400':
           description: BAD REQUEST 
@@ -253,19 +247,21 @@ paths:
                 example: 
                  message: Internal Server Error
           
+          
 components:
   schemas:
-    contactList:
+    ContactList:
       type: object
       properties:
         id:
-           type: integer
+          type: integer
         fullName:
           type: string
         contactNumber:
-           type: integer
+          type: integer
         personalEmail: 
-           type: string
+          type: string
+           
     Contact:  
       type: object
       properties:
@@ -290,7 +286,7 @@ components:
         homeAddress:
           type: string
           example: JamshedPur
-        workAdress:
+        workAddress:
           type: string
           example: Bangalore
         department:
@@ -302,6 +298,7 @@ components:
         categoryId:
           type: integer
           example: 3001
+          
     Category:
       type: object
       properties:
