@@ -2,16 +2,15 @@ openapi: 3.0.3
 info:
   title: Smart Contact Manager - OpenAPI 3.0
   description: 
-              This Project was about creatig smart contact manager.
-              Which can be specifically used for business model.This is web 
-              application which can be used as a simple plugging to any 
-              exixting project.|-
-   
+              This Project is about creating smart contact manager,
+              Which can be specifically used for business model.This is a web 
+              application which can be used as a simple plugin to any 
+              existing project.
   termsOfService: http://swagger.io/terms/
   contact:
     email: subhojitgh1999@gmail.com
   license:
-    name: Contact Manager
+    name: Smart Contact Manager
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   version: 1.0.11
 externalDocs:
@@ -20,19 +19,20 @@ externalDocs:
 servers:
   - url: https://localhost:8080
 tags:
-  - name: Categories
+  - name: Category
     description: Apis related to Categories
     externalDocs:
       description: Find out more
       url: http://swagger.io
+
 paths:
   /v1/category:
       post:
         tags:
-         - Categories
+         - Category
         summary: Add a new Category
         description: Add a new Category
-        operationId: addcategory
+        operationId: addCategory
         requestBody:
          content:
           application/json:
@@ -65,12 +65,13 @@ paths:
                   type: string
                   example:
                     messages: Something went wrong
+
       get:
        tags:
-         - Categories
+         - Category
        summary: Fetch list of all categories
        description: All the categories will be fetched
-       operationId: findPetsByStatus
+       operationId: getListOfCategory
        responses:
         '200':
           description: OK
@@ -82,13 +83,11 @@ paths:
                     $ref: '#/components/schemas/Categories'
                 example:
                     - id: 100
-                      CategoryName: Hr
+                      categoryName: Hr
                       categoryType: work
                     - id: 101  
-                      CategoryName: IT
+                      categoryName: IT
                       categoryType: work
-                
-      
         '404':
           description: NOT FOUND
           content:
@@ -97,7 +96,6 @@ paths:
                 type: string
                 example:
                   messages: "Categories not found" 
-        
         '500':
           description: INTERNAL SERVER ERROR
           content:
@@ -106,14 +104,11 @@ paths:
                 type: string
                 example:
                   messages: "Something went wrong"
-                  
-  
-   
-     
+
   /v1/categories/{categoryId}/contacts:
       put:
         tags:
-         - Categories
+         - Category
         summary: Add a Contact to a Specific CategoryId
         description: Add a contact to a specific CategoryId
         parameters:
@@ -122,9 +117,7 @@ paths:
            description: Add contact to a Specific category
            required: true
            schema:
-              type: integer
-              
-                      
+              type: integer               
         requestBody:
          content:
           application/json:
@@ -133,14 +126,10 @@ paths:
               items: 
                   $ref: '#/components/schemas/ContactId'
               example: 
-                contatid:
+                contactId:
                     - 112
                     - 113
-                    - 114
-                    
-                   
-                     
-              
+                    - 114     
         responses:
          '201':
             description: CREATED
@@ -149,7 +138,7 @@ paths:
                 schema:
                   type: string
                   example: 
-                     messages: Contact added Succesfully
+                     messages: Contact added Successfully
          '400':
             description: BAD REQUEST
             content: 
@@ -166,30 +155,30 @@ paths:
                   type: string
                   example:
                     messages: Something went wrong
+
       get:
           tags:
-            - Categories
-          summary: Get contacts details by CategoryId
-          description: Fetch the Contacts by CategoryId
-          operationId: getdeatilsbyId
+            - Category
+          summary: Get contact details by categoryId
+          description: Fetch the Contact by categoryId
+          operationId: getDeatilsById
           parameters:
             - name: categoryId
               in: path
-              description: Status values that need to be considered for filter
+              description: CategoryId that need to be considered for filter
               required: true
               schema:
                 type: integer
                 example: 101
-            - name: contactIds
+            - name: contactId
               in: query
-              description: Status values that need to be considered for filter
+              description: ContactId that need to be considered for filter
               required: false
               schema:
                 type: integer
                 example: 101
           responses:
              '200':
-             
               description: OK
               content:
                 application/json:
@@ -200,14 +189,12 @@ paths:
                     example:
                         - id: 100
                           fullName: bablu kr
-                          contactcNumber: 7546930695
+                          contactNumber: 7546930695
                           personalEmail: nk5469562@gmail.com
                         - id: 101  
                           fullName: Dblu kr
-                          contactcNumber: 7546930893
+                          contactNumber: 7546930893
                           personalEmail: was@gmail.com
-                    
-          
              '404':
               description: NOT FOUND
               content:
@@ -232,30 +219,30 @@ paths:
                     type: string
                     example:
                       messages: Something went wrong
+
       delete:
           tags:
-            - Categories
-          summary: Delete Conatacts detais by categoryId
-          description: Deleting the contacts by categoryId
+            - Categorry
+          summary: Delete Conatact details by categoryId
+          description: Deleting contacts by categoryId
           operationId: deleteContactsById
           parameters:
             - name: categoryId
               in: path
-              description: Status values that need to be considered for filter
+              description: CategoryId that need to be considered for filter
               required: true
               schema:
                 type: integer
                 example: 101
             - name: Delete
               in: header
-              description: ' Delete specfic Contact with respect to given CategoryId'
+              description: Delete specfic Contact with respect to given CategoryId
               required: false
               schema:
-                type: string
-            
+                type: string   
           responses:
             '200':
-              description: SUCCESFULLY DELETED
+              description: SUCCESSFULLY DELETED
               content: 
                 applicaton/json:
                   schema:
@@ -281,7 +268,6 @@ paths:
 
 components:
   schemas:
-  
     ContactId:
       type: object
       properties:
@@ -302,8 +288,7 @@ components:
           example: Hr
         categoryType:
           type: string
-          example: work
-          
+          example: work      
     Contacts:
       type: object
       properties:
@@ -314,40 +299,4 @@ components:
         contactNumber:
           type: integer
         personalEmail: 
-          type: string
-          
-          
-    User:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          example: 10
-        username:
-          type: string
-          example: theUser
-        firstName:
-          type: string
-          example: John
-        lastName:
-          type: string
-          example: James
-        email:
-          type: string
-          example: john@email.com
-        password:
-          type: string
-          example: '12345'
-        phone:
-          type: string
-          example: '12345'
-        userStatus:
-          type: integer
-          description: User Status
-          format: int32
-          example: 1
-     
-    
-        
-   
+          type: string      
