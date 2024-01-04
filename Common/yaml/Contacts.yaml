@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
-  title: Smart Contact Mangaer OpenAPI 3.0
-  description: The Project was about creating smart contact manager.Which can be specifically used for business model.This is a web application which can be used as a simple pluging to any existing project.|-
+  title: Smart Contact Manager OpenAPI 3.0
+  description: The Project is about creating smart contact manager,Which can be specifically used for business model.This is a web application which can be used as a simple plugin to any existing project.|
    
   termsOfService: http://swagger.io/terms/
   contact:
@@ -15,24 +15,19 @@ externalDocs:
   url: http://swagger.io
 servers:
   - url: http://localhost:8082
+  
 tags:
-  - name: contacts
+  - name: Contact
     description: Apis related to contacts
     externalDocs:
       description: Find out more
       url: http://swagger.io
-  - name: categories
-    description: Apis related to categories
-    externalDocs:
-      description: Find out more about our store
-      url: http://swagger.io
-  - name: user
-    description: Operations about user
+      
 paths:
   /v1/contacts:
     post:
       tags:
-        - contacts
+        - Contact
       summary: Add a new contat
       description: Add a new contact
       operationId: addContact
@@ -42,6 +37,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/Contact'
+              
       responses:
         '201':
           description: Successful
@@ -51,6 +47,7 @@ paths:
                 type: string
                 example:
                   message: "Contact Created Successfully"
+                  
         '400':
           description: BAD REQUEST
           content:
@@ -59,6 +56,7 @@ paths:
                 type: string
                 example:
                   message: "Invalid Contact Details"
+                  
         '500':
             description: Internal Server Error
             content:
@@ -70,7 +68,7 @@ paths:
         
     delete:
       tags:
-        - contacts
+        - Contact
       summary: Delete all contacts
       description: Delete all contacts
       operationId: deleteContacts
@@ -83,6 +81,7 @@ paths:
                 type: string
                 example:
                   message: "All Contacts Deleted Successfully"
+                  
         '500':
             description: Internal Server Error
             content:
@@ -91,10 +90,11 @@ paths:
                   type: string
                   example:
                     message: "Something went Wrong"
+                    
     get:
      
       tags:
-        - contacts
+        - Contact
       summary: Get all contacts
       description: Get all contacts
       operationId: Get contacts
@@ -115,21 +115,21 @@ paths:
             example: 3 
         - name: name
           in: query
-          description: Enter the Name
+          description: Name of the contact
           required: false
           schema:
             type: string
             example: Bablu  
         - name: personalEmail
           in: query
-          description: Enter the personalEmail
+          description: Name of the personalEmail
           required: false
           schema:
             type: string
             example: kondangkelbablu1998@gmail.com  
         - name: workEmail
           in: query
-          description: Enter the workEmail
+          description: Name of the workEmail
           required: false
           schema:
             type: string
@@ -144,8 +144,7 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/contactList'
-                  
-                  
+                
                 example:
                   - contactId: 101
                     fullName: Bablu Kondangkel
@@ -154,12 +153,12 @@ paths:
                         
                   - contactId: 102
                     fullName: Krishna Kondangkel
-                    contactNumber: 9934148122
+                    contactNumber: 9936548166
                     personalEmail: krishnakondangkel24@gmail.com
                         
                   - contactId: 103
                     fullName: Sonalika Kondangkel
-                    contactNumber: 8252209996
+                    contactNumber: 9934148990
                     personalEmail: saraswatikumari1249@gmail.com
            
         '400':
@@ -170,6 +169,7 @@ paths:
                 type: string
                 example:
                   message: "Invalid Contact Details"
+                  
         '404':
              description: Invalid ID Supplies
              content:
@@ -177,7 +177,8 @@ paths:
                  schema:
                    type: string
                    example:
-                      message: "Contact Not Found"       
+                      message: "Contact Not Found"   
+                      
         '500':
             description: Internal Server Error
             content:
@@ -187,13 +188,10 @@ paths:
                    example:
                      message: "Server Error"  
                      
-                     
-  
   /v1/contacts/{id}:
-  
     patch:
       tags:
-          - contacts
+          - Contact
       summary: Update contacts by id
       description: Update details of a contact
       operationId: jshd
@@ -207,9 +205,7 @@ paths:
             default: 10001
             enum: 
              - 10001
-            
-         
-      
+  
       responses:
        '200':
           description: successful
@@ -231,7 +227,7 @@ paths:
                   
     delete:
       tags:
-          - contacts
+          - Contact
       summary: Delete contacts by id
       description: Delete details of a contact
       operationId: jshd
@@ -246,7 +242,6 @@ paths:
             enum: 
              - 10001
             
-          
       responses:
        '200':
           description: successful
@@ -274,11 +269,10 @@ paths:
                 type: string
                 example:
                   message: "Internal Server Error"
-                        
-                  
+    
     get:
       tags:
-        - contacts
+        - Contact
       summary: Get detils by contactId
       description: Get details of specific contact
       operationId: detailsOfcontact
@@ -309,6 +303,7 @@ paths:
                 type: string
                 example:
                   message: Invalid ContactId
+                  
         '404':
              description: NOT FOUND
              content:
@@ -317,6 +312,7 @@ paths:
                    type: string
                    example:
                       message: Contact Not Found with ContactId     
+                      
         '500':
             description: Internal Server Error
             content:
@@ -324,7 +320,8 @@ paths:
                  schema:
                    type: string
                    example:
-                     message: Server Error        
+                     message: Server Error   
+                     
 components:
   schemas:
     contactList:
