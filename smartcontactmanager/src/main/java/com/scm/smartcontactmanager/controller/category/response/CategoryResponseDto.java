@@ -10,11 +10,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CategoryResponseDto {
-	
+
 	private String name;
 	private String type;
 	private int contactId;
 	private int userId;
 	private boolean byAdmin;
-
 }

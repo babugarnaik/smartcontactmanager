@@ -109,8 +109,9 @@ paths:
       put:
         tags:
          - Category
-        summary: Add a Contact to a Specific CategoryId
-        description: Add a contact to a specific CategoryId
+        summary: Add Contact to a Specific CategoryId
+        description: Add contact to a specific CategoryId
+        operationId: Add contact by CategoryId
         parameters:
          - name: categoryId
            in: path
@@ -161,7 +162,7 @@ paths:
             - Category
           summary: Get contact details by categoryId
           description: Fetch the Contact by categoryId
-          operationId: getDeatilsById
+          operationId: getDetailsById
           parameters:
             - name: categoryId
               in: path
@@ -222,7 +223,7 @@ paths:
 
       delete:
           tags:
-            - Categorry
+            - Category
           summary: Delete Conatact details by categoryId
           description: Deleting contacts by categoryId
           operationId: deleteContactsById

@@ -10,29 +10,29 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name="category")
+@Table(name = "category")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class Category {
-	
+
 	@Id
 	private int id;
-	
-	@Column(name="name")
+
+	@Column(name = "name")
 	private String name;
-	
-	@Column(name="type")
+
+	@Column(name = "type")
 	private String type;
-	
-	@Column(name="contat_id")
+
+	@Column(name = "contact_id")
 	private int contactId;
-	
-	@Column(name="user_id")
+
+	@Column(name = "user_id")
 	private int userId;
-	
-	@Column(name="by_admin")
+
+	@Column(name = "by_admin")
 	private boolean byAdmin;
 
 }
