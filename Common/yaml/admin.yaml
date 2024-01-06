@@ -1,0 +1,311 @@
+openapi: 3.0.3
+info:
+  title: Smart Contact Manager - OpenAPI 3.0
+  description: The project is about creating Smart Contact Manager which can be specifically used for business model. This is a web application which can be used as a simple plugin to any existing project. 
+   
+  
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: nk5469562@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.11
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+  - url: http://localhost:8080
+
+  
+paths:
+  /v1/contacts/admin/users/{userId}:
+    get:
+      tags:
+        - Contact
+      summary: Find contacts 
+      description: To get list of contacts of specific user 
+      operationId: getListOfContact
+      
+      parameters:
+        - name: userId
+          in: path
+          description: userId values that need to be considered for filter
+          required: true
+          schema:
+            type: integer
+            example: 1001
+            
+        - name: contactIds
+          in: query
+          description: contactId values that need to be considered for filter
+          required: false
+          schema:
+            type: string
+            default: '101,102,103'
+            enum:
+              - '101'
+              - '101,102,103'
+              
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ContactList'
+                
+                example:
+                  - id: 101
+                    fullName: Naneet Kumar
+                    contactNumber: 7546930695
+                    personalEmail: nk5469562@gmail.com
+                    
+                  - id: 102
+                    fullName: Mukesh Kumar
+                    contactNumber: 7546930799
+                    personalEmail: mukesh@gmail.com  
+            
+        '400':
+          description: BAD REQUEST 
+          content:
+             application/json:
+              schema:
+                type: string
+                example: 
+                  message: Invalid UserId/ContactId
+          
+        '404':
+          description: NOT FOUND  
+          content:
+             application/json:
+              schema:
+                type: string
+                example: 
+                  message: Contact not found
+                  
+        '500':
+          description: INTERNAL SERVER ERROR
+          content:
+             application/json:
+              schema:
+                type: string
+                example: 
+                  message: Internal Server Error
+                  
+                
+    delete:
+      tags:
+           - Contact
+      summary: Delete contacts 
+      description: To delete  specific user's contacts
+      operationId: deleteContactOfUser
+      
+      parameters:
+        - name: userId
+          in: path
+          description: userId values that need to be considered for filter
+          required: true
+          schema:
+            type: integer
+            default: 1001
+            enum:
+              - 1001
+             
+        - name: contactIds
+          in: query
+          description: contactIds, that need to be considered for delete
+          required: false
+          schema:
+            type: string
+            default: "101,102,103"
+            enum:
+              - "101"
+              - "101,102,103"
+                      
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: string
+                example: 
+                  message: Deleted successfully
+                
+        '400':
+          description: BAD REQUEST 
+          content:
+             application/json:
+              schema:
+                type: string
+                example: 
+                  message: Invalid UserId/ContactId
+                  
+        '404':
+          description: NOT FOUND  
+          content:
+             application/json:
+              schema:
+                type: string
+                example: 
+                  message: Contact not found
+                  
+        '500':
+          description: INTERNAL SERVER ERROR
+          content:
+             application/json:
+              schema:
+                type: string
+                example: 
+                 message: Internal Server Error
+                                   
+                                   
+  /v1/contacts/admin:
+    post:
+      tags:
+           - Contact
+      summary: Create contact 
+      description: Create contact for all users by Admin
+      operationId: createContact
+      
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Contact'
+      responses:
+        '201':
+          description: CREATED 
+          content:
+            application/json:
+              schema:
+                type: string
+                example: 
+                  message: Contact Created Successfully
+                
+        '400':
+          description: BAD REQUEST 
+          content:
+             application/json:
+              schema:
+                type: string
+                example: 
+                  message: Invalid Input
+                  
+        '500':
+          description: INTERNAL SERVER ERROR
+          content:
+             application/json:
+              schema:
+                type: string
+                example: 
+                 message: Internal Server Error
+  
+  
+  /v1/categories/admin:
+    post:
+      tags:
+           - Category
+      summary: Create category 
+      description: Create category for all users by Admin
+      operationId: createCategory
+      
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Category'
+      
+      responses:
+        '201':
+          description: CREATED 
+          content:
+            application/json:
+              schema:
+                type: string
+                example: 
+                  message: Category Created Successfully
+                
+        '400':
+          description: BAD REQUEST 
+          content:
+             application/json:
+              schema:
+                type: string
+                example: 
+                  message: Invalid Input
+                  
+        '500':
+          description: INTERNAL SERVER ERROR
+          content:
+             application/json:
+              schema:
+                type: string
+                example: 
+                 message: Internal Server Error
+          
+          
+components:
+  schemas:
+    ContactList:
+      type: object
+      properties:
+        id:
+          type: integer
+        fullName:
+          type: string
+        contactNumber:
+          type: integer
+        personalEmail: 
+          type: string
+           
+    Contact:  
+      type: object
+      properties:
+        firstName: 
+          type: string
+          example: Bablu
+        middleName: 
+          type: string
+          example: na
+        lastName:
+          type: string
+          example: kr
+        contactNumber: 
+          type: integer
+          example: 8252209996
+        personalEmail: 
+          type: string
+          example: bablu@gmail.com
+        workEmail:
+          type: string
+          example: babla@gamil.com
+        homeAddress:
+          type: string
+          example: JamshedPur
+        workAddress:
+          type: string
+          example: Bangalore
+        department:
+          type: string
+          example: Software
+        webSite: 
+          type: string
+          example: www.linkedin.com
+        categoryId:
+          type: integer
+          example: 3001
+          
+    Category:
+      type: object
+      properties:
+        categoryName:
+          type: string
+          example: FamilyFriend
+        categoryType:
+          type: string
+          example: personal
+      
