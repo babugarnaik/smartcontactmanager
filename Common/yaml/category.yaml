@@ -1,0 +1,303 @@
+openapi: 3.0.3
+info:
+  title: Smart Contact Manager - OpenAPI 3.0
+  description: 
+              This Project is about creating smart contact manager,
+              Which can be specifically used for business model.This is a web 
+              application which can be used as a simple plugin to any 
+              existing project.
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: subhojitgh1999@gmail.com
+  license:
+    name: Smart Contact Manager
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.11
+externalDocs:
+  description: Find out more about Smart Contact Manager
+  url: http://swagger.io
+servers:
+  - url: https://localhost:8080
+tags:
+  - name: Category
+    description: Apis related to Categories
+    externalDocs:
+      description: Find out more
+      url: http://swagger.io
+
+paths:
+  /v1/category:
+      post:
+        tags:
+         - Category
+        summary: Add a new Category
+        description: Add a new Category
+        operationId: addCategory
+        requestBody:
+         content:
+          application/json:
+            schema:
+              type: array
+              items: 
+                  $ref: '#/components/schemas/Category'
+        responses:
+          '201':
+            description: CREATED
+            content:
+              application/json:
+                schema:
+                  type: string
+                  example: 
+                     messages: Category created successfully
+          '400':
+            description: BAD REQUEST
+            content: 
+                application/json:
+                  schema:
+                    type: string
+                    example:
+                      messages: Invalid Input
+          '500':
+            description: INTERNAL SERVER ERROR
+            content:
+              application/json:
+                schema:
+                  type: string
+                  example:
+                    messages: Something went wrong
+
+      get:
+       tags:
+         - Category
+       summary: Fetch list of all categories
+       description: All the categories will be fetched
+       operationId: getListOfCategory
+       responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                    $ref: '#/components/schemas/Categories'
+                example:
+                    - id: 100
+                      categoryName: Hr
+                      categoryType: work
+                    - id: 101  
+                      categoryName: IT
+                      categoryType: work
+        '404':
+          description: NOT FOUND
+          content:
+            application/json:
+              schema:
+                type: string
+                example:
+                  messages: "Categories not found" 
+        '500':
+          description: INTERNAL SERVER ERROR
+          content:
+            application/json:
+              schema:
+                type: string
+                example:
+                  messages: "Something went wrong"
+
+  /v1/categories/{categoryId}/contacts:
+      put:
+        tags:
+         - Category
+        summary: Add Contact to a Specific CategoryId
+        description: Add contact to a specific CategoryId
+        operationId: Add contact by CategoryId
+        parameters:
+         - name: categoryId
+           in: path
+           description: Add contact to a Specific category
+           required: true
+           schema:
+              type: integer               
+        requestBody:
+         content:
+          application/json:
+            schema:
+              type: array
+              items: 
+                  $ref: '#/components/schemas/ContactId'
+              example: 
+                contactId:
+                    - 112
+                    - 113
+                    - 114     
+        responses:
+         '201':
+            description: CREATED
+            content:
+              application/json:
+                schema:
+                  type: string
+                  example: 
+                     messages: Contact added Successfully
+         '400':
+            description: BAD REQUEST
+            content: 
+                application/json:
+                  schema:
+                    type: string
+                    example:
+                      messages: Invalid Contact Details
+         '500':
+            description: INTERNAL SERVER ERROR
+            content:
+              application/json:
+                schema:
+                  type: string
+                  example:
+                    messages: Something went wrong
+
+      get:
+          tags:
+            - Category
+          summary: Get contact details by categoryId
+          description: Fetch the Contact by categoryId
+          operationId: getDetailsById
+          parameters:
+            - name: categoryId
+              in: path
+              description: CategoryId that need to be considered for filter
+              required: true
+              schema:
+                type: integer
+                example: 101
+            - name: contactId
+              in: query
+              description: ContactId that need to be considered for filter
+              required: false
+              schema:
+                type: integer
+                example: 101
+          responses:
+             '200':
+              description: OK
+              content:
+                application/json:
+                  schema:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/Contacts'
+                    example:
+                        - id: 100
+                          fullName: bablu kr
+                          contactNumber: 7546930695
+                          personalEmail: nk5469562@gmail.com
+                        - id: 101  
+                          fullName: Dblu kr
+                          contactNumber: 7546930893
+                          personalEmail: was@gmail.com
+             '404':
+              description: NOT FOUND
+              content:
+                application/json:
+                  schema:
+                    type: string
+                    example:
+                      messages: Categories not found
+             '400':
+              description: BAD REQUEST
+              content: 
+                applicaton/json:
+                  schema:
+                    type: string
+                    example:
+                      messages: Invalid input
+             '500':
+              description: INTERNAL SERVER ERROR
+              content:
+                application/json:
+                  schema:
+                    type: string
+                    example:
+                      messages: Something went wrong
+
+      delete:
+          tags:
+            - Category
+          summary: Delete Contact details by categoryId
+          description: Deleting contacts by categoryId
+          operationId: deleteContactsById
+          parameters:
+            - name: categoryId
+              in: path
+              description: CategoryId that need to be considered for filter
+              required: true
+              schema:
+                type: integer
+                example: 101
+            - name: Delete
+              in: header
+              description: Delete specfic Contact with respect to given CategoryId
+              required: false
+              schema:
+                type: string   
+          responses:
+            '200':
+              description: SUCCESSFULLY DELETED
+              content: 
+                applicaton/json:
+                  schema:
+                    type: string
+                    example:
+                      messages: DELETED SUCCESSFULLY
+            '400':
+              description: BAD REQUEST
+              content: 
+                applicaton/json:
+                  schema:
+                    type: string
+                    example:
+                      messages: Invalid Input
+            '500':
+              description: INTERNAL SERVER ERROR
+              content:
+                application/json:
+                  schema:
+                    type: string
+                    example:
+                      messages: Something went wrong
+
+components:
+  schemas:
+    ContactId:
+      type: object
+      properties:
+        id:
+          type: integer
+    Categories:
+      type: object
+      properties:
+        id:
+          type: integer
+        catoryName:
+          type: string
+    Category:
+      type: object
+      properties:
+        categoryName:
+          type: string
+          example: Hr
+        categoryType:
+          type: string
+          example: work      
+    Contacts:
+      type: object
+      properties:
+        id:
+          type: integer
+        fullName:
+          type: string
+        contactNumber:
+          type: integer
+        personalEmail: 
+          type: string      
