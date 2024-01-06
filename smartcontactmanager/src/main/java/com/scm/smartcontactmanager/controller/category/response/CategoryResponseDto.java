@@ -16,4 +16,5 @@ public class CategoryResponseDto {
 	private int contactId;
 	private int userId;
 	private boolean byAdmin;
+	
 }

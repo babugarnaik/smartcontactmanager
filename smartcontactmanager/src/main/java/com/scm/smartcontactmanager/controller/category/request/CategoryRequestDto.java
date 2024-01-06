@@ -20,4 +20,5 @@ public class CategoryRequestDto {
 	private int contactId;
 	private int userId;
 	private boolean byAdmin;
+	
 }

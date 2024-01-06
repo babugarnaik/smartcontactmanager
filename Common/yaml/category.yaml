@@ -224,7 +224,7 @@ paths:
       delete:
           tags:
             - Category
-          summary: Delete Conatact details by categoryId
+          summary: Delete Contact details by categoryId
           description: Deleting contacts by categoryId
           operationId: deleteContactsById
           parameters:
