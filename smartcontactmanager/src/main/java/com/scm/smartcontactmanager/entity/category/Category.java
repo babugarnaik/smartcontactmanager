@@ -34,4 +34,6 @@ public class Category {
 
 	@Column(name = "by_admin")
 	private boolean byAdmin;
+	
+	
 }
