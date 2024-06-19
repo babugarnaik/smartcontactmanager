@@ -1,5 +1,6 @@
 package com.scm.smartcontactmanager.controller.contact.request;
 
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -13,6 +14,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ContactRequestDto {
+	
+	@Id
+	private int categoryId;
+	
 	@Size(min=2, message ="First name should be atleast 2 letters")
 	@Pattern(regexp ="[A-Za-z]",message="It should contain only alphabatic letter")
 	private String firstName;
@@ -24,7 +29,7 @@ public class ContactRequestDto {
 	private String lastName;
 	
 	@Pattern(regexp = "[0-9]{10}")
-	private long contactNumber;
+	private String contactNumber;
 	
 	@Email
 	private String personalEmail;
@@ -44,5 +49,6 @@ public class ContactRequestDto {
 	
 	@Size(min=2, message ="Website should be atleast 2 letters")
 	private String website;
+
 }
 	
