@@ -1,3 +1,4 @@
+
 package com.scm.smartcontactmanager.security.config;
 
 import jakarta.servlet.http.HttpServletRequest;

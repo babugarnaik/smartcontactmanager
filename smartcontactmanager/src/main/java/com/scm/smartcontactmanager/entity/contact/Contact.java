@@ -13,7 +13,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
 @Table(name="contact")
 @Entity
 public class Contact {
