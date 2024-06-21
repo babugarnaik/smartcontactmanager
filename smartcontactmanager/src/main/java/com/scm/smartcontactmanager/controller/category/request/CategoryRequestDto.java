@@ -14,10 +14,9 @@ public class CategoryRequestDto {
 
 	@Size(min = 2, message = "Name should be atleast 2 letters")
 	private String name;
-
-	@Size(min = 2, message = "Name should be atleast 2 letters")
+    
+	
 	private String type;
-	private int contactId;
 	private int userId;
 	private boolean byAdmin;
 	

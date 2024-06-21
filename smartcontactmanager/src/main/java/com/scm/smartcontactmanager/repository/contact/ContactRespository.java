@@ -1,8 +1,15 @@
 package com.scm.smartcontactmanager.repository.contact;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.yaml.snakeyaml.events.Event.ID;
+import org.springframework.stereotype.Repository;
 
-public interface ContactRespository<T> extends JpaRepository<T,ID>{
-
+import com.scm.smartcontactmanager.entity.contact.Contact;
+@Repository
+public interface ContactRespository extends JpaRepository<Contact, Integer>{
+	
+	List<Contact> findByIdIn(List<Integer> contactIds);
+	
+ 
 }

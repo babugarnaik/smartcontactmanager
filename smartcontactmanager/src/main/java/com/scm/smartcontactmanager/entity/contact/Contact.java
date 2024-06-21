@@ -1,6 +1,7 @@
 package com.scm.smartcontactmanager.entity.contact;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -13,6 +14,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name="contact")
+@Entity
 public class Contact {
 	
 	@Id
