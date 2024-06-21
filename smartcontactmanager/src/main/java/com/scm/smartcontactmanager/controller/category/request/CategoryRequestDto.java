@@ -18,7 +18,6 @@ public class CategoryRequestDto {
 	
 	private String type;
 	private int userId;
-	private boolean byAdmin23;
-
+	private boolean byAdmin;
 	
 }

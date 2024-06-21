@@ -1,11 +1,11 @@
- ç.¿ package com.scm.smartcontactmanager.security.user;
- import java.util.Collection;
+package com.scm.smartcontactmanager.security.user;
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.alibou.security.token.Token;
+import com.scm.smartcontactmanager.security.token.Token;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -24,7 +24,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "_user")
+@Table(name = "users")
 public class User implements UserDetails {
 
   private static final long serialVersionUID = 1L;
