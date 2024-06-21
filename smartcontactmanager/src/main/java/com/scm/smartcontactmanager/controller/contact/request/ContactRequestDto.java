@@ -35,6 +35,9 @@ public class ContactRequestDto {
 	@Size(min=2, message ="Home address should be atleast 2 letters")
 	private String homeAddress;
 	
+	
+	private int categoryId;
+	
 	@Size(min=2, message ="Work address should be atleast 2 letters")
 	private String workAddress;
 	

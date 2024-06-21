@@ -1,7 +1,12 @@
 package com.scm.smartcontactmanager.entity.category;
 
+import java.util.Date;
+
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -18,6 +23,7 @@ import lombok.NoArgsConstructor;
 public class Category {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
 	@Column(name = "name")
@@ -34,4 +40,11 @@ public class Category {
 
 	@Column(name = "by_admin")
 	private boolean byAdmin;
+	
+	@Column(name="created_on")
+	private Date createdOn;
+	
+	@Column(name="updated_on")
+	private Date updatedOn;
+	
 }

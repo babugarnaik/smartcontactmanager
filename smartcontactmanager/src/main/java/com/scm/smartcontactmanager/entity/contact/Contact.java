@@ -1,6 +1,11 @@
 package com.scm.smartcontactmanager.entity.contact;
 
+import java.util.Date;
+
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -8,6 +13,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Entity
 @Data
 @Builder
 @NoArgsConstructor
@@ -16,6 +22,7 @@ import lombok.NoArgsConstructor;
 public class Contact {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
 	@Column(name="first_name")
@@ -47,4 +54,19 @@ public class Contact {
 	
 	@Column(name="website")
 	private String website;
+	
+	@Column(name="user_id")
+	private int userId;
+	
+	@Column(name="by_admin")
+	private boolean byAdmin;
+	
+	@Column(name="updated_by")
+	private String upadtedBy;
+	
+	@Column(name="created_on")
+	private Date createdOn;
+	
+	@Column(name="updated_on")
+	private Date updatedOn;
 }
