@@ -2,12 +2,13 @@ package com.scm.smartcontactmanager.security.user;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import static com.scm.smartcontactmanager.security.user.Permission.ADMIN_CREATE;
 import static com.scm.smartcontactmanager.security.user.Permission.ADMIN_DELETE;
