@@ -30,20 +30,20 @@ public class ContactController {
 	@PostMapping(value = "/v1/contacts", consumes = "application/json", produces = "application/json")
 	public ResponseEntity<String> createContact(@RequestBody ContactRequestDto contactRequestDto) {
 		contactService.createContact(contactRequestDto);
-		return new ResponseEntity<>("Succesfully created", HttpStatus.OK);
+		return new ResponseEntity<>("Contact Succesfully created", HttpStatus.OK);
 	}
 
 	@DeleteMapping(value = "/v1/contacts", produces = "application/json")
 	public ResponseEntity<String> deleteAllContact() {
 		contactService.deleteAllContact();
-		return new ResponseEntity<>("Succesfully Deleted", HttpStatus.OK);
+		return new ResponseEntity<>("Contact Succesfully Deleted", HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/v1/contacts", produces = "application/json")
 	public ResponseEntity<List<Contact>> getAllContact(@RequestParam(name = "page", defaultValue = "0") int page,
 			@RequestParam(name = "limit",defaultValue = "10") int size,
 			@RequestParam(name = "name", required = false) String name,
-			@RequestParam(name="email",  required = false) String email){
+			@RequestParam(name ="email",  required = false) String email){
 		PageRequest pageRequest = PageRequest.of(page, size);
 		List<Contact> contactList = contactService.getAllContact(pageRequest, name,email);
 		return new ResponseEntity<>(contactList, HttpStatus.OK);
@@ -52,13 +52,13 @@ public class ContactController {
 	@PatchMapping(value = "/v1/contacts/{id}", consumes = "application/json", produces = "application/json")
 	public ResponseEntity<String> updateContact(@RequestBody Contact contactdto, @PathVariable("id") int id) {
 		contactService.updateContactById(contactdto, id);
-		return new ResponseEntity<>("Succesfully Updated", HttpStatus.OK);
+		return new ResponseEntity<>("Contact Succesfully Updated", HttpStatus.OK);
 	}
 
 	@DeleteMapping(value = "/v1/contacts/{id}", produces = "application/json")
 	public ResponseEntity<String> deleteById(@PathVariable("id") int id) {
 		contactService.deleteById(id);
-		return new ResponseEntity<>("Successfully deleted", HttpStatus.OK);
+		return new ResponseEntity<>("Contact Successfully deleted", HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/v1/contacts/{id}", produces = "application/json")

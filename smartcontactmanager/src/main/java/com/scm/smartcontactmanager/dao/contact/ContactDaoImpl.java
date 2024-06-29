@@ -47,9 +47,9 @@ public class ContactDaoImpl implements ContactDao {
 	}
 
 	@Override
-	public List<Contact> getContactByName(PageRequest pageRequest, String name) {
+	public List<Contact> getContactByName(PageRequest pageRequest, String firstName) {
 		Pageable page = PageRequest.of(pageRequest.getPageNumber(), pageRequest.getPageSize(), Sort.by("firstName"));
-		return contactRepo.searchByName(name, page);
+		return contactRepo.searchByName(firstName, page);
 	}
 
 	@Override

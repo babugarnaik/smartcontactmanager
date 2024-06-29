@@ -25,10 +25,10 @@ import lombok.NoArgsConstructor;
 @Table(name="contact")
 public class Contact {
 	
-	@Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "contact_SEQ")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "contact_SEQ")
 	@SequenceGenerator(name = "contact_SEQ", sequenceName = "contact_SEQ", allocationSize = 1)
 	
+    @Id
 	private int id;
 	
 	@Column(name="first_name")

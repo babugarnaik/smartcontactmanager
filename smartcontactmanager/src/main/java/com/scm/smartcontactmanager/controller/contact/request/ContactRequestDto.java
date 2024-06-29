@@ -19,13 +19,13 @@ public class ContactRequestDto {
 	private int categoryId;
 	
 	@Size(min=2, message ="First name should be atleast 2 letters")
-	@Pattern(regexp ="[A-Za-z]",message="It should contain only alphabatic letter")
+	@Pattern(regexp ="[A-Za-z]",message="It should contain only alphabetic letter")
 	private String firstName;
 	
-	@Pattern(regexp ="[A-Za-z]",message="It should contain only alphabatic letter")
+	@Pattern(regexp ="[A-Za-z]",message="It should contain only alphabetic letter")
 	private String middleName;
 	
-	@Pattern(regexp ="[A-Za-z]",message="It should contain only alphabatic letter")
+	@Pattern(regexp ="[A-Za-z]",message="It should contain only alphabetic letter")
 	private String lastName;
 	
 	@Pattern(regexp = "[0-9]{10}")
@@ -44,7 +44,7 @@ public class ContactRequestDto {
 	private String workAddress;
 	
 	@Size(min=2, message ="Department should be atleast 2 letters")
-	@Pattern(regexp ="[A-Za-z]" ,message="It should contain only alphabatic letter")
+	@Pattern(regexp ="[A-Za-z]" ,message="It should contain only alphabetic letter")
 	private String department;
 	
 	@Size(min=2, message ="Website should be atleast 2 letters")
