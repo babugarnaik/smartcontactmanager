@@ -16,12 +16,10 @@ public interface CategoryService {
 
 	public List<Category> getListOfCategory();
 
-
-	public void addContactsToCategory(int id, ContactIds contactIds) throws Exception;
+	public void addContactsToCategory(int id, ContactIds contactIds) ;
 
 	List<Contact> getContactsByCategoryId(int id);
 
 	void deleteCategoryById(int id);
-
 
 }

@@ -17,6 +17,7 @@ import com.scm.smartcontactmanager.dao.category.CategoryDao;
 import com.scm.smartcontactmanager.entity.category.Category;
 import com.scm.smartcontactmanager.entity.contact.Contact;
 import com.scm.smartcontactmanager.entity.contactcategoryrelation.ContactCategoryRelation;
+import com.scm.smartcontactmanager.exceptionhandle.BadRequestException;
 import com.scm.smartcontactmanager.exceptionhandle.ServiceException;
 import com.scm.smartcontactmanager.repository.contact.ContactRespository;
 import com.scm.smartcontactmanager.repository.contactcategoryrelation.ContactCategoryRelationRepository;
@@ -28,22 +29,21 @@ public class CategoryServiceImpl implements CategoryService {
 
 	@Autowired
 	private CategoryDao categoryDao;
-	@Autowired
-	private ContactCategoryRelationRepository contactCategoryRelationRepository ;
 
 	@Override
 	public CategoryResponseDto createCategory(@Valid CategoryRequestDto categoryRequestDto) {
 		Category category = mapToEntity(categoryRequestDto);
-		Category findCategory = categoryDao.findCategory(categoryRequestDto.getName(),categoryRequestDto.getType());
-		if(findCategory!=null) {
+		Category existingCategory = categoryDao.findCategory(categoryRequestDto.getName(),
+				categoryRequestDto.getType());
+		if (existingCategory != null) {
 			throw new ServiceException(HttpStatus.valueOf(409), "Category already exsists");
-		}else {
-			Category createCategory = categoryDao.createCategory(category);
-			
-			CategoryResponseDto savedResponse = mapToResponseDto(createCategory);
+		} else {
+			Category newCategory = categoryDao.newCategory(category);
+
+			CategoryResponseDto savedResponse = mapToResponseDto(newCategory);
 			return savedResponse;
 		}
-		
+
 	}
 
 	Category mapToEntity(CategoryRequestDto categoryRequestDto) {
@@ -65,73 +65,60 @@ public class CategoryServiceImpl implements CategoryService {
 		categoryResponseDto.setByAdmin(false);
 		return categoryResponseDto;
 	}
-	
-	
+
 	@Override
-	public List<Category> getListOfCategory(){
+	public List<Category> getListOfCategory() {
 		List<Category> categoryList = categoryDao.getListOfCategory();
-		if(categoryList==null) {
-			throw new ServiceException(HttpStatusCode.valueOf(404), "Categories not found");
+		if (categoryList == null) {
+			throw new ServiceException(HttpStatusCode.valueOf(404), "Category not found");
 		}
 		return categoryList;
 	}
 
 	@Override
-	public void addContactsToCategory(int id, ContactIds contactIds) throws Exception {
+	public void addContactsToCategory(int id, ContactIds contactIds) {
 		Category category = categoryDao.getCategoryById(id).get();
 		List<Contact> contactList = categoryDao.getContactdByIds(contactIds.getContactId());
-		if(category != null && contactList.size() == contactIds.getContactId().size()) {
+		if (category != null && contactList.size() == contactIds.getContactId().size()) {
 			List<ContactCategoryRelation> relations = new ArrayList<>();
-			for(int cId: contactIds.getContactId()) {
-				ContactCategoryRelation relation = ContactCategoryRelation.builder()
-						                                       .categoryId(id)
-						                                       .contactId(cId)
-						                                       .build();
-		
+			for (int cId : contactIds.getContactId()) {
+				ContactCategoryRelation relation = ContactCategoryRelation.builder().categoryId(id).contactId(cId)
+						.build();
+
 				relations.add(relation);
 			}
 			List<ContactCategoryRelation> concatrelation = categoryDao.addContactsToCategory(relations);
 		} else {
-			throw new Exception("Invalid Input!");
+			throw new BadRequestException(HttpStatusCode.valueOf(400), "Bad Request");
 		}
-		
+
 	}
-    @Override
-	public  List<Contact> getContactsByCategoryId(int id) {
-    	
-    	Optional<Category> categoryById = categoryDao.getCategoryById(id);	
-    	if(categoryById.isEmpty()) {
-    		throw new ServiceException(HttpStatusCode.valueOf(404),"Category not found with id: "+id);
-    	}else {
-    	List<ContactCategoryRelation> relations = categoryDao.getContactCategoryRelation(id);
-    	List<Integer> contactIds = relations.stream().map(rl -> rl.getContactId()).collect(Collectors.toList());
-//    	List<Integer> contactIds = new ArrayList<>();
-//    	for(ContactCategoryRelation rl: relations) {
-//    		contactIds.add(rl.getContactId());
-//    	}
-    	List<Contact> contactList = categoryDao.getContactdByIds(contactIds);
-    	return contactList;
-    	}
-		
+
+	@Override
+	public List<Contact> getContactsByCategoryId(int id) {
+
+		Optional<Category> categoryById = categoryDao.getCategoryById(id);
+		if (categoryById.isEmpty()) {
+			throw new ServiceException(HttpStatusCode.valueOf(404), "Category not found with id: " + id);
+		} else {
+			List<ContactCategoryRelation> relations = categoryDao.getContactCategoryRelation(id);
+			List<Integer> contactIds = relations.stream().map(rl -> rl.getContactId()).collect(Collectors.toList());
+			List<Contact> contactList = categoryDao.getContactdByIds(contactIds);
+			return contactList;
+		}
+
 	}
+
 	@Override
 	public void deleteCategoryById(int id) {
-		Optional<Category> categoryById = categoryDao.getCategoryById(id);	
-    	if(categoryById.isEmpty()) {
-    		throw new ServiceException(HttpStatusCode.valueOf(404),"Category not found with id: "+id);
-    	}
-//		List<ContactCategoryRelation> relations = categoryDao.getContactCategoryRelation(id);
-//		List<Integer> contactIds = relations.stream().map(rd ->rd.getContactId()).collect(Collectors.toList());
-//      categoryDao.deleteContactByIds(contactIds);
-    	categoryDao.deleteCategoryById(id);
-    	List<ContactCategoryRelation> findByCategoryId = categoryDao.getContactCategoryRelation(id);
-    	List<Integer> collectId = findByCategoryId.stream().map(f -> f.getId()).collect(Collectors.toList());
-    	categoryDao.deleteContactCategoryRelationById(collectId);
-		
-		
+		Optional<Category> categoryById = categoryDao.getCategoryById(id);
+		if (categoryById.isEmpty()) {
+			throw new ServiceException(HttpStatusCode.valueOf(404), "Category with id" + "{" + id + "}" + "not found");
+		}
+		categoryDao.deleteCategoryById(id);
+		List<ContactCategoryRelation> existingContactCategoryRelations = categoryDao.getContactCategoryRelation(id);
+		List<Integer> idList = existingContactCategoryRelations.stream().map(f -> f.getId()).collect(Collectors.toList());
+		categoryDao.deleteContactCategoryRelationById(idList);
 	}
-	
-	
-	
-	
+
 }

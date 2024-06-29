@@ -12,8 +12,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ErrorResponse {
-	
 	private LocalDateTime timeStamp;
 	private String message;
-
 }

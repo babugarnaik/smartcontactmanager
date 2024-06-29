@@ -13,40 +13,40 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="contact")
+@Table(name = "contact")
 @Entity
 public class Contact {
-	
+
 	@Id
 	private int id;
-	
-	@Column(name="first_name")
+
+	@Column(name = "first_name")
 	private String firstName;
-	
-	@Column(name="middle_name")
+
+	@Column(name = "middle_name")
 	private String middleName;
-	
-	@Column(name="last_name")
+
+	@Column(name = "last_name")
 	private String lastName;
-	
-	@Column(name="contact_number")
+
+	@Column(name = "contact_number")
 	private long contactNumber;
-	
-	@Column(name="personal_email")
+
+	@Column(name = "personal_email")
 	private String personalEmail;
-	
-	@Column(name="work_email")
+
+	@Column(name = "work_email")
 	private String workEmail;
-	
-	@Column(name="home_address")
+
+	@Column(name = "home_address")
 	private String homeAddress;
-	
-	@Column(name="work_address")
+
+	@Column(name = "work_address")
 	private String workAddress;
-	
-	@Column(name="department")
+
+	@Column(name = "department")
 	private String department;
-	
-	@Column(name="website")
+
+	@Column(name = "website")
 	private String website;
 }

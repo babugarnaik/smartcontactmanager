@@ -1,4 +1,4 @@
- package com.scm.smartcontactmanager.controller.category;
+package com.scm.smartcontactmanager.controller.category;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,7 +28,6 @@ public class CategoryController {
 
 	@Autowired
 	private CategoryService categoryService;
-	
 
 	@PostMapping(value = "/v1/category", consumes = "application/json", produces = "application/json")
 	public ResponseEntity<?> createCategory(@Valid @RequestBody CategoryRequestDto categoryRequestDto,
@@ -41,34 +40,31 @@ public class CategoryController {
 		categoryService.createCategory(categoryRequestDto);
 		return new ResponseEntity<>("Category created successfully", HttpStatus.CREATED);
 	}
-	@GetMapping(value = "/v1/category",produces = "application/json")
-	public ResponseEntity<List<Category>> getListOfCategory(){
+
+	@GetMapping(value = "/v1/category", produces = "application/json")
+	public ResponseEntity<List<Category>> getListOfCategory() {
 		List<Category> listOfCategory = categoryService.getListOfCategory();
-		return new ResponseEntity<List<Category>>(listOfCategory,HttpStatus.OK);
+		return new ResponseEntity<List<Category>>(listOfCategory, HttpStatus.OK);
 	}
+
 	@PutMapping(value = "/v1/categories/{categoryId}/contacts", consumes = "application/json", produces = "application/json")
-	public ResponseEntity<String> addContactsToCategory(@PathVariable("categoryId")int id, @RequestBody ContactIds contactIds) throws Exception{
-		categoryService.addContactsToCategory(id,contactIds);
-		
-		return new ResponseEntity<String>("Contacts added successfully",HttpStatus.CREATED);
+	public ResponseEntity<String> addContactsToCategory(@PathVariable("categoryId") int id,@RequestBody ContactIds contactIds) {
+		categoryService.addContactsToCategory(id, contactIds);
+
+		return new ResponseEntity<String>("Contacts added to Category successfully", HttpStatus.CREATED);
 	}
-	@GetMapping(value = "/v1/categories/{categoryId}/contacts",produces = "application/json")
-	public ResponseEntity<List<Contact>> getContactsByCategoryId(@PathVariable ("categoryId") int id){
-		
+
+	@GetMapping(value = "/v1/categories/{categoryId}/contacts", produces = "application/json")
+	public ResponseEntity<List<Contact>> getContactsByCategoryId(@PathVariable("categoryId") int id) {
+
 		List<Contact> contactList = categoryService.getContactsByCategoryId(id);
 		return new ResponseEntity<>(contactList, HttpStatus.OK);
 	}
-	
+
 	@DeleteMapping(value = "/v1/categories/{categoryId}/contacts", produces = "application/json")
-	public ResponseEntity<String> deleteCategoryById(@PathVariable ("categoryId") int id){
+	public ResponseEntity<String> deleteCategoryById(@PathVariable("categoryId") int id) {
 		categoryService.deleteCategoryById(id);
-		return new ResponseEntity<String>("Deleted SuccessFully",HttpStatus.OK);
+		return new ResponseEntity<String>("Category and ContactCategoryRelations deleted successfully", HttpStatus.OK);
 	}
-	
-	
-	
-	
-	
-	
 
 }

@@ -1,5 +1,4 @@
 package com.scm.smartcontactmanager.entity.contactcategoryrelation;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,17 +19,16 @@ import lombok.experimental.SuperBuilder;
 @RequiredArgsConstructor
 @SuperBuilder
 public class ContactCategoryRelation {
-	
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "contact_category_relation_seq")
-	@SequenceGenerator(name = "contact_category_relation_seq", sequenceName = "contact_category_relation_seq",allocationSize = 1)
+	@SequenceGenerator(name = "contact_category_relation_seq", sequenceName = "contact_category_relation_seq", allocationSize = 1)
 	private int id;
-	
-	@Column(name =  "contact_id")
+
+	@Column(name = "contact_id")
 	private int contactId;
-	
-	@Column(name= "category_id")
+
+	@Column(name = "category_id")
 	private int categoryId;
 
 }

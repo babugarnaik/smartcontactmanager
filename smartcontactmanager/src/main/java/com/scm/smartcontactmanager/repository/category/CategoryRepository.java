@@ -9,8 +9,8 @@ import com.scm.smartcontactmanager.entity.category.Category;
 
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Integer> {
-	
+
 	@Query("select c from Category c where lower(name)=lower(:name) and type = :type ")
-	Category findByNameAndTypeIgnoreCase(@Param ("name") String name,@Param ("type")String type);
+	Category findByNameAndTypeIgnoreCase(@Param("name") String name, @Param("type") String type);
 
 }

@@ -8,9 +8,8 @@ import org.springframework.stereotype.Repository;
 import com.scm.smartcontactmanager.entity.contact.Contact;
 
 @Repository
-public interface ContactRespository extends JpaRepository<Contact, Integer>{
-	
+public interface ContactRespository extends JpaRepository<Contact, Integer> {
+
 	List<Contact> findByIdIn(List<Integer> contactIds);
-	
- 
+
 }

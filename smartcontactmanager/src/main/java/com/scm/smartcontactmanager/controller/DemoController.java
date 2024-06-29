@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class DemoController {
 
 	@GetMapping("/v1/scm/test")
-	public ResponseEntity<String> sayHello(@RequestHeader(name = "Authorization", required = false) String token){
+	public ResponseEntity<String> sayHello(@RequestHeader(name = "Authorization", required = false) String token) {
 		return ResponseEntity.ok("Api Test Successful");
 	}
-	
+
 }

@@ -1,6 +1,5 @@
 package com.scm.smartcontactmanager.dao.category;
 
-
 import java.util.List;
 import java.util.Optional;
 
@@ -18,63 +17,57 @@ import com.scm.smartcontactmanager.repository.contactcategoryrelation.ContactCat
 public class CategoryDaoImpl implements CategoryDao {
 	@Autowired
 	private CategoryRepository categoryRepository;
-	
+
 	@Autowired
-	private ContactRespository contactRespository ;
-	
+	private ContactRespository contactRespository;
+
 	@Autowired
-	private ContactCategoryRelationRepository contactCategoryRelationRepository ;
-	
-//	@Autowired
-//	private ContactCategoryRelationRepository contactCategoryRelationRepository;
+	private ContactCategoryRelationRepository contactCategoryRelationRepository;
 
 	@Override
-	public Category createCategory(Category category) {
+	public Category newCategory(Category category) {
 		Category saveContact = categoryRepository.save(category);
 		return saveContact;
 	}
+
 	@Override
-	public List<Category> getListOfCategory(){
+	public List<Category> getListOfCategory() {
 		return categoryRepository.findAll();
-		
 	}
-	
+
 	@Override
 	public Optional<Category> getCategoryById(int id) {
-		
-		return  categoryRepository.findById(id);
+		return categoryRepository.findById(id);
 	}
+
 	@Override
 	public List<ContactCategoryRelation> addContactsToCategory(List<ContactCategoryRelation> relations) {
-		
 		return contactCategoryRelationRepository.saveAll(relations);
 	}
+
 	@Override
-	public List<ContactCategoryRelation> getContactCategoryRelation(int categoryId){
-		
-		return contactCategoryRelationRepository.findByCategoryId(categoryId) ;
+	public List<ContactCategoryRelation> getContactCategoryRelation(int categoryId) {
+		return contactCategoryRelationRepository.findByCategoryId(categoryId);
 	}
+
 	@Override
 	public List<Contact> getContactdByIds(List<Integer> contactIds) {
-		
 		return contactRespository.findByIdIn(contactIds);
 	}
+
 	@Override
-	public void deleteCategoryById(int id){
+	public void deleteCategoryById(int id) {
 		categoryRepository.deleteById(id);
 	}
+
 	@Override
-	public Category findCategory(String name,String type) {
-		
-		return categoryRepository.findByNameAndTypeIgnoreCase(name,type);
+	public Category findCategory(String name, String type) {
+		return categoryRepository.findByNameAndTypeIgnoreCase(name, type);
 	}
-	
+
 	@Override
-	public void deleteContactCategoryRelationById(List<Integer> collectId) {
-		
-		contactCategoryRelationRepository.deleteAllById(collectId);
+	public void deleteContactCategoryRelationById(List<Integer> idList) {
+		contactCategoryRelationRepository.deleteAllById(idList);
 	}
-	
-	
 
 }
