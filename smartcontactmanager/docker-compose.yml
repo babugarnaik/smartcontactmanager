@@ -1,11 +1,11 @@
 version: '3.8'
 
 services:
-  app:
+  scm:
     image: 'smartcontactmanager:v1'
     build:
       context: .
-    container_name: app
+    container_name: scm_local
 #    depends_on:
 #      - db
     environment:
